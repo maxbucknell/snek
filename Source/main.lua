@@ -3,30 +3,18 @@ import "CoreLibs/graphics"
 import "CoreLibs/sprites"
 import "CoreLibs/timer"
 
-import "snake"
-
 local pd <const> = playdate
 local gfx <const> = pd.graphics
 
-local INITIAL_LENGTH <const> = 5
-local START_LOCATION <const> = pd.geometry.point.new(60, 60)
+import "snake"
+import "background"
+import "game"
 
-local snake = Snake(
-    INITIAL_LENGTH,
-    START_LOCATION
-)
+game = Game()
 
-function playdate.update()
+function pd.update()
     gfx.sprite.update()
     pd.timer.updateTimers()
+
+    game:update()
 end
-
-function setup()
-    local function callback()
-        snake:update()
-    end
-
-    pd.timer.keyRepeatTimerWithDelay(1000, 1000, callback)
-end
-
-setup()
